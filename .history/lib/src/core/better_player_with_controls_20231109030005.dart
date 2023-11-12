@@ -146,9 +146,7 @@ class _BetterPlayerWithControlsState extends State<BetterPlayerWithControls> {
             playerVisibilityStream: playerVisibilityStreamController.stream,
           ),
           if (!placeholderOnTop) _buildPlaceholder(betterPlayerController),
-          //here
-          _buildControls(context, betterPlayerController,
-              betterPlayerController.betterPlayerConfiguration.onVideoTap),
+          _buildControls(context, betterPlayerController),
         ],
       ),
     );
@@ -163,7 +161,6 @@ class _BetterPlayerWithControlsState extends State<BetterPlayerWithControls> {
   Widget _buildControls(
     BuildContext context,
     BetterPlayerController betterPlayerController,
-    void Function()? onVideoTap,
   ) {
     if (controlsConfiguration.showControls) {
       BetterPlayerTheme? playerTheme = controlsConfiguration.playerTheme;
@@ -180,27 +177,27 @@ class _BetterPlayerWithControlsState extends State<BetterPlayerWithControls> {
         return controlsConfiguration.customControlsBuilder!(
             betterPlayerController, onControlsVisibilityChanged);
       } else if (playerTheme == BetterPlayerTheme.material) {
-        return _buildMaterialControl(onVideoTap);
+        return _buildMaterialControl();
       } else if (playerTheme == BetterPlayerTheme.cupertino) {
-        return _buildCupertinoControl(onVideoTap);
+        return _buildCupertinoControl();
       }
     }
 
     return const SizedBox();
   }
 
-  Widget _buildMaterialControl(void Function()? onVideoTap) {
+  Widget _buildMaterialControl() {
     return BetterPlayerMaterialControls(
-        onControlsVisibilityChanged: onControlsVisibilityChanged,
-        controlsConfiguration: controlsConfiguration,
-        onVideoTap: onVideoTap);
+      onControlsVisibilityChanged: onControlsVisibilityChanged,
+      controlsConfiguration: controlsConfiguration,
+    );
   }
 
-  Widget _buildCupertinoControl(void Function()? onVideoTap) {
+  Widget _buildCupertinoControl() {
     return BetterPlayerCupertinoControls(
-        onControlsVisibilityChanged: onControlsVisibilityChanged,
-        controlsConfiguration: controlsConfiguration,
-        onVideoTap: onVideoTap);
+      onControlsVisibilityChanged: onControlsVisibilityChanged,
+      controlsConfiguration: controlsConfiguration,
+    );
   }
 
   void onControlsVisibilityChanged(bool state) {

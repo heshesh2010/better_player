@@ -18,10 +18,9 @@ class BetterPlayerMaterialControls extends StatefulWidget {
 
   ///Controls config
   final BetterPlayerControlsConfiguration controlsConfiguration;
-  void Function()? onVideoTap = () {};
-  BetterPlayerMaterialControls({
+
+  const BetterPlayerMaterialControls({
     Key? key,
-    required this.onVideoTap,
     required this.onControlsVisibilityChanged,
     required this.controlsConfiguration,
   }) : super(key: key);
@@ -363,16 +362,15 @@ class _BetterPlayerMaterialControlsState
     if (!betterPlayerController!.controlsEnabled) {
       return const SizedBox();
     }
-    return InkWell(
-        onTap: widget.onVideoTap,
-        child: Container(
-            child: Center(
-          child: AnimatedOpacity(
-            opacity: controlsNotVisible ? 0.0 : 1.0,
-            duration: _controlsConfiguration.controlsHideTime,
-            child: _buildMiddleRow(),
-          ),
-        )));
+    return Container(
+      child: Center(
+        child: AnimatedOpacity(
+          opacity: controlsNotVisible ? 0.0 : 1.0,
+          duration: _controlsConfiguration.controlsHideTime,
+          child: _buildMiddleRow(),
+        ),
+      ),
+    );
   }
 
   Widget _buildMiddleRow() {
@@ -399,71 +397,69 @@ class _BetterPlayerMaterialControlsState
     );
   }
 
-  // Widget _buildHitAreaClickableButton(
-  //     {Widget? icon, required void Function() onClicked}) {
-  //   return Container(
-  //     constraints: const BoxConstraints(maxHeight: 80.0, maxWidth: 80.0),
-  //     child: BetterPlayerMaterialClickableWidget(
-  //       onTap: onClicked,
-  //       child: Align(
-  //         child: Container(
-  //           decoration: BoxDecoration(
-  //             color: Colors.transparent,
-  //             borderRadius: BorderRadius.circular(48),
-  //           ),
-  //           child: Padding(
-  //             padding: const EdgeInsets.all(8),
-  //             child: Stack(
-  //               children: [icon!],
-  //             ),
-  //           ),
-  //         ),
-  //       ),
-  //     ),
-  //   );
-  // }
+  Widget _buildHitAreaClickableButton(
+      {Widget? icon, required void Function() onClicked}) {
+    return Container(
+      constraints: const BoxConstraints(maxHeight: 80.0, maxWidth: 80.0),
+      child: BetterPlayerMaterialClickableWidget(
+        onTap: onClicked,
+        child: Align(
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.transparent,
+              borderRadius: BorderRadius.circular(48),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(8),
+              child: Stack(
+                children: [icon!],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
 
   Widget _buildSkipButton() {
-    return InkWell(
-      child: Icon(
+    return _buildHitAreaClickableButton(
+      icon: Icon(
         _controlsConfiguration.skipBackIcon,
         size: 24,
         color: _controlsConfiguration.iconsColor,
       ),
-      onTap: skipBack,
+      onClicked: skipBack,
     );
   }
 
   Widget _buildForwardButton() {
-    return InkWell(
-      child: Icon(
+    return _buildHitAreaClickableButton(
+      icon: Icon(
         _controlsConfiguration.skipForwardIcon,
         size: 24,
         color: _controlsConfiguration.iconsColor,
       ),
-      onTap: skipForward,
+      onClicked: skipForward,
     );
   }
 
   Widget _buildReplayButton(VideoPlayerController controller) {
     final bool isFinished = isVideoFinished(_latestValue);
-    return InkWell(
-      child: isFinished
+    return _buildHitAreaClickableButton(
+      icon: isFinished
           ? Icon(
               Icons.replay,
               size: 42,
               color: _controlsConfiguration.iconsColor,
             )
-          : _controlsConfiguration.enablePlayPause
-              ? Icon(
-                  controller.value.isPlaying
-                      ? _controlsConfiguration.pauseIcon
-                      : _controlsConfiguration.playIcon,
-                  size: 42,
-                  color: _controlsConfiguration.iconsColor,
-                )
-              : SizedBox(),
-      onTap: () {
+          : Icon(
+              controller.value.isPlaying
+                  ? _controlsConfiguration.pauseIcon
+                  : _controlsConfiguration.playIcon,
+              size: 42,
+              color: _controlsConfiguration.iconsColor,
+            ),
+      onClicked: () {
         if (isFinished) {
           if (_latestValue != null && _latestValue!.isPlaying) {
             if (_displayTapped) {

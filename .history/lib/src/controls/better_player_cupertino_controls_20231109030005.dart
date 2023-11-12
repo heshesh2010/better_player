@@ -16,11 +16,10 @@ class BetterPlayerCupertinoControls extends StatefulWidget {
 
   ///Controls config
   final BetterPlayerControlsConfiguration controlsConfiguration;
-  void Function()? onVideoTap;
-  BetterPlayerCupertinoControls({
+
+  const BetterPlayerCupertinoControls({
     required this.onControlsVisibilityChanged,
     required this.controlsConfiguration,
-    required this.onVideoTap,
     Key? key,
   }) : super(key: key);
 
@@ -39,7 +38,7 @@ class _BetterPlayerCupertinoControlsState
   Timer? _expandCollapseTimer;
   Timer? _initTimer;
   bool _wasLoading = false;
-  void Function()? onVideoTap;
+
   VideoPlayerController? _controller;
   BetterPlayerController? _betterPlayerController;
   StreamSubscription? _controlsVisibilityStreamSubscription;
@@ -276,7 +275,24 @@ class _BetterPlayerCupertinoControlsState
 
   Expanded _buildHitArea() {
     return Expanded(
-      child: InkWell(onTap: widget.onVideoTap),
+      child: GestureDetector(
+        onTap: _latestValue != null && _latestValue!.isPlaying
+            ? () {
+                if (controlsNotVisible == true) {
+                  cancelAndRestartTimer();
+                } else {
+                  _hideTimer?.cancel();
+                  changePlayerControlsNotVisible(true);
+                }
+              }
+            : () {
+                _hideTimer?.cancel();
+                changePlayerControlsNotVisible(false);
+              },
+        child: Container(
+          color: Colors.transparent,
+        ),
+      ),
     );
   }
 

@@ -117,7 +117,6 @@ class BetterPlayerConfiguration {
   ///Flag which causes to player use the root navigator to open new pages.
   ///Default value is false.
   final bool useRootNavigator;
-  final void Function()? onVideoTap;
 
   const BetterPlayerConfiguration({
     this.aspectRatio,
@@ -157,7 +156,6 @@ class BetterPlayerConfiguration {
     this.autoDispose = true,
     this.expandToFill = true,
     this.useRootNavigator = false,
-    this.onVideoTap,
   });
 
   BetterPlayerConfiguration copyWith({
@@ -171,7 +169,6 @@ class BetterPlayerConfiguration {
     bool? placeholderOnTop,
     Widget? overlay,
     bool? showControlsOnInitialize,
-    void Function()? onVideoTap,
     Widget Function(BuildContext context, String? errorMessage)? errorBuilder,
     bool? allowedScreenSleep,
     double? fullScreenAspectRatio,
@@ -197,7 +194,6 @@ class BetterPlayerConfiguration {
       autoPlay: autoPlay ?? this.autoPlay,
       startAt: startAt ?? this.startAt,
       looping: looping ?? this.looping,
-      onVideoTap: onVideoTap ?? this.onVideoTap,
       fullScreenByDefault: fullScreenByDefault ?? this.fullScreenByDefault,
       placeholder: placeholder ?? this.placeholder,
       showPlaceholderUntilPlay:

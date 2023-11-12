@@ -276,7 +276,24 @@ class _BetterPlayerCupertinoControlsState
 
   Expanded _buildHitArea() {
     return Expanded(
-      child: InkWell(onTap: widget.onVideoTap),
+      child: GestureDetector(
+        onTap: _latestValue != null && _latestValue!.isPlaying
+            ? () {
+                if (controlsNotVisible == true) {
+                  cancelAndRestartTimer();
+                } else {
+                  _hideTimer?.cancel();
+                  changePlayerControlsNotVisible(true);
+                }
+              }
+            : () {
+                _hideTimer?.cancel();
+                changePlayerControlsNotVisible(false);
+              },
+        child: Container(
+          color: Colors.transparent,
+        ),
+      ),
     );
   }
 
