@@ -5,9 +5,16 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "better_player",
-            "request": "launch",
+            "name": "better_player (attach)",
+            "request": "attach",
             "type": "dart"
+        },
+        {
+            "name": "better_player (debug)",
+            "request": "launch",
+            "type": "dart",
+            "program": "lib/main.dart",
+            "flutterMode": "debug"
         },
         {
             "name": "better_player (profile mode)",
