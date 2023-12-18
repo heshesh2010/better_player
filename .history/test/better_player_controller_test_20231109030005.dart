@@ -199,7 +199,11 @@ void main() {
             hideCalls += 1;
           }
         });
-
+        betterPlayerMockController.setControlsVisibility(false);
+        betterPlayerMockController.setControlsVisibility(false);
+        betterPlayerMockController.setControlsVisibility(true);
+        betterPlayerMockController.setControlsVisibility(true);
+        betterPlayerMockController.setControlsVisibility(false);
         await Future.delayed(const Duration(milliseconds: 100), () {});
         expect(hideCalls, 3);
         expect(showCalls, 2);

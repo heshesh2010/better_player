@@ -23,7 +23,7 @@ class BetterPlayerController {
   static const String _authorizationHeader = "Authorization";
 
   ///General configuration used in controller instance.
-  BetterPlayerConfiguration betterPlayerConfiguration;
+  final BetterPlayerConfiguration betterPlayerConfiguration;
 
   ///Playlist configuration used in controller instance.
   final BetterPlayerPlaylistConfiguration? betterPlayerPlaylistConfiguration;
@@ -468,8 +468,7 @@ class BetterPlayerController {
           drmHeaders: _betterPlayerDataSource?.drmConfiguration?.headers,
           activityName:
               _betterPlayerDataSource?.notificationConfiguration?.activityName,
-          packageName:
-              _betterPlayerDataSource?.notificationConfiguration?.packageName,
+          packageName: _betterPlayerDataSource?.notificationConfiguration?.packageName,
           clearKey: _betterPlayerDataSource?.drmConfiguration?.clearKey,
           videoExtension: _betterPlayerDataSource!.videoExtension,
         );
@@ -497,8 +496,8 @@ class BetterPlayerController {
             overriddenDuration: _betterPlayerDataSource!.overriddenDuration,
             activityName: _betterPlayerDataSource
                 ?.notificationConfiguration?.activityName,
-            packageName:
-                _betterPlayerDataSource?.notificationConfiguration?.packageName,
+             packageName: _betterPlayerDataSource
+                ?.notificationConfiguration?.packageName,
             clearKey: _betterPlayerDataSource?.drmConfiguration?.clearKey);
         break;
       case BetterPlayerDataSourceType.memory:
@@ -728,14 +727,8 @@ class BetterPlayerController {
     return videoPlayerController!.value.isBuffering;
   }
 
-  void setControlsVisibility(
-    BetterPlayerConfiguration betterPlayerConfiguration,
-  ) {
-    this.betterPlayerConfiguration = betterPlayerConfiguration;
-  }
-
   ///Show or hide controls manually
-  void setConfig(bool isVisible) {
+  void setControlsVisibility(bool isVisible) {
     _controlsVisibilityStreamController.add(isVisible);
   }
 
