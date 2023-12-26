@@ -71,6 +71,7 @@ class BetterPlayerDataSource {
   ///in playlist. Otherwise, you should use placeholder from
   /// BetterPlayerConfiguration.
   final Widget? placeholder;
+  final void Function()? onVideoTap;
 
   ///Configuration of video buffering. Currently only supported in Android
   ///platform.
@@ -98,6 +99,7 @@ class BetterPlayerDataSource {
     this.videoExtension,
     this.drmConfiguration,
     this.placeholder,
+    this.onVideoTap,
     this.bufferingConfiguration = const BetterPlayerBufferingConfiguration(),
   }) : assert(
             (type == BetterPlayerDataSourceType.network ||
@@ -126,25 +128,24 @@ class BetterPlayerDataSource {
     Widget? placeholder,
     BetterPlayerBufferingConfiguration bufferingConfiguration =
         const BetterPlayerBufferingConfiguration(),
+    void Function()? onVideoTap,
   }) {
-    return BetterPlayerDataSource(
-      BetterPlayerDataSourceType.network,
-      url,
-      subtitles: subtitles,
-      liveStream: liveStream,
-      headers: headers,
-      useAsmsSubtitles: useAsmsSubtitles,
-      useAsmsTracks: useAsmsTracks,
-      useAsmsAudioTracks: useAsmsAudioTracks,
-      resolutions: qualities,
-      cacheConfiguration: cacheConfiguration,
-      notificationConfiguration: notificationConfiguration,
-      overriddenDuration: overriddenDuration,
-      videoFormat: videoFormat,
-      drmConfiguration: drmConfiguration,
-      placeholder: placeholder,
-      bufferingConfiguration: bufferingConfiguration,
-    );
+    return BetterPlayerDataSource(BetterPlayerDataSourceType.network, url,
+        subtitles: subtitles,
+        liveStream: liveStream,
+        headers: headers,
+        useAsmsSubtitles: useAsmsSubtitles,
+        useAsmsTracks: useAsmsTracks,
+        useAsmsAudioTracks: useAsmsAudioTracks,
+        resolutions: qualities,
+        cacheConfiguration: cacheConfiguration,
+        notificationConfiguration: notificationConfiguration,
+        overriddenDuration: overriddenDuration,
+        videoFormat: videoFormat,
+        drmConfiguration: drmConfiguration,
+        placeholder: placeholder,
+        bufferingConfiguration: bufferingConfiguration,
+        onVideoTap: onVideoTap);
   }
 
   ///Factory method to build file data source which uses url as data source.
