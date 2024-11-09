@@ -160,20 +160,20 @@ class BetterPlayerDataSource {
     BetterPlayerNotificationConfiguration? notificationConfiguration,
     Duration? overriddenDuration,
     Widget? placeholder,
-    void Function()? onVideoTap,
   }) {
-    return BetterPlayerDataSource(BetterPlayerDataSourceType.file, url,
-        subtitles: subtitles,
-        useAsmsSubtitles: useAsmsSubtitles,
-        useAsmsTracks: useAsmsTracks,
-        resolutions: qualities,
-        cacheConfiguration: cacheConfiguration,
-        notificationConfiguration: notificationConfiguration =
-            const BetterPlayerNotificationConfiguration(
-                showNotification: false),
-        overriddenDuration: overriddenDuration,
-        placeholder: placeholder,
-        onVideoTap: onVideoTap);
+    return BetterPlayerDataSource(
+      BetterPlayerDataSourceType.file,
+      url,
+      subtitles: subtitles,
+      useAsmsSubtitles: useAsmsSubtitles,
+      useAsmsTracks: useAsmsTracks,
+      resolutions: qualities,
+      cacheConfiguration: cacheConfiguration,
+      notificationConfiguration: notificationConfiguration =
+          const BetterPlayerNotificationConfiguration(showNotification: false),
+      overriddenDuration: overriddenDuration,
+      placeholder: placeholder,
+    );
   }
 
   ///Factory method to build network data source which uses bytes as data source.
